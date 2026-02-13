@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💘</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4d6d, #ff4d6d);
+    font-family: 'Comic Sans MS', cursive;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Title */
+h1 {
+    color: white;
+    font-size: 40px;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 10px #ff4d6d;
+    z-index: 2;
+}
+
+/* Teddy video */
+.teddy-video {
+    width: 260px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+/* Buttons */
+button {
+    padding: 14px 30px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+    z-index: 2;
+}
+
+#yesBtn {
+    background-color: #6dbef0;
+    color: white;
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background-color: white;
+    color: #ff4d6d;
+    position: absolute;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatMove linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatMove {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--xMove), var(--yMove)) scale(1.8);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<h1>Will You Be My Valentine? 💘🥺</h1>
+<h4 style="color: aliceblue;">(say no if you can)</h4>
+
+<video class="teddy-video" autoplay loop muted playsinline>
+    <source src="teddy.mp4" type="video/mp4">
+</video>
+
+<div>
+    <button id="yesBtn" onclick="goToLove()">YES 💖</button>
+    <button id="noBtn">NO 🙅‍♀️</button>
+</div>
+
+<script>
+
+/* Music autoplay fix */
+document.body.addEventListener("click", function() {
+    document.getElementById("bgMusic").play();
+});
+
+/* HEARTS THROUGHOUT SCREEN */
+function createHeart() {
+
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+
+    // Random starting position
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+
+    // Random movement direction
+    let xMove = (Math.random() - 0.5) * 300 + "px";
+    let yMove = (Math.random() - 0.5) * 300 + "px";
+
+    heart.style.setProperty('--xMove', xMove);
+    heart.style.setProperty('--yMove', yMove);
+
+    // Random size
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+    // Random animation duration
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+// Create hearts continuously
+setInterval(createHeart, 200);
+
+/* NO button runs away */
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+    noBtn.style.top = Math.random() * 80 + "vh";
+    noBtn.style.left = Math.random() * 80 + "vw";
+});
+
+/* YES redirect */
+function goToLove() {
+    window.location.href = "surprise.html";
+}
+
+</script>
+
+</body>
+</html>
